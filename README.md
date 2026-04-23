@@ -59,6 +59,29 @@ The plugin handles the rest:
   into `android/settings.gradle` so the local Android SDK checkout
   resolves by path. Removed once the Android SDK publishes to Maven Central.
 
+## Using in a plain React Native app (no Expo)
+
+This package is an Expo Module, but Expo Modules run in any React Native
+app once `expo-modules-core` is installed — the managed workflow isn't
+required. From a `react-native init` project:
+
+```bash
+npx install-expo-modules@latest
+npm install @amsemnat/expo-sdk
+cd ios && pod install
+```
+
+`install-expo-modules` wires `expo-modules-core` into the iOS `AppDelegate`
+and Android `MainApplication`; no other source changes are needed. The
+TypeScript surface (`AmSemnat.readIdentity`, `.sign`, events, errors)
+behaves identically.
+
+The config plugin still runs if you keep an `app.json` and invoke
+`npx expo prebuild`. Without `expo prebuild`, apply the NFC entitlement /
+Info.plist / AndroidManifest edits from [Installation](#installation)
+manually — the plugin's job is to generate those, not to be required at
+runtime.
+
 ## Quick start
 
 ### Read identity
@@ -116,13 +139,31 @@ const result = AmSemnat.verifyPassiveOffline({
     DG2: identity.rawDg2Base64!,
     DG14: identity.rawDg14Base64!,
   },
-  trustAnchorsBase64: [/* CSCA or document-signer certs, DER → base64 */],
+  trustAnchorsBase64: [/* `CSCA Romania`, DER → base64 */],
 });
 if (!result.valid) console.warn(result.errors);
 ```
 
 Server-side verification against the official Romanian trust list is
 delegated to `@amsemnat/verifier-node` (shipped separately).
+
+The SDK doesn't bundle any certificates. Two Romanian authorities
+publish the certs the SDK interacts with, one per PKI:
+
+- **DGP — `CSCA Romania`**, published at
+  <https://pasapoarte.mai.gov.ro/csca.html>. Self-signed ICAO CSCA that
+  issues the Document Signer embedded in the eMRTD SOD. This is the
+  trust anchor for `AmSemnat.verifyPassiveOffline(...)`. Use the
+  self-signed certificate; the link certificates on that page are only
+  useful when migrating trust from a prior CSCA key.
+- **DGEP — `RO CEI MAI Root-CA` / `Sub-CA`**, published at
+  <https://hub.mai.gov.ro/cei/info/descarca-cert>. Issues the
+  per-citizen signing certificates stored in the CEI applet and used by
+  `AmSemnat.sign(...)`; those are the anchors for verifying the PAdES
+  signatures the SDK produces.
+
+Your app owns freshness and revocation — re-fetch on a cadence
+appropriate for your trust window.
 
 ## Localizing the NFC sheet
 
