@@ -55,9 +55,6 @@ The plugin handles the rest:
   applet AIDs in Info.plist
 - Android — `<uses-feature android:name="android.hardware.nfc">` +
   BouncyCastle META-INF exclusion in the app's `packagingOptions`
-- Android (pre-1.0 only) — injects a Gradle composite-build directive
-  into `android/settings.gradle` so the local Android SDK checkout
-  resolves by path. Removed once the Android SDK publishes to Maven Central.
 
 ## Using in a plain React Native app (no Expo)
 

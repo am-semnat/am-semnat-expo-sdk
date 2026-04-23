@@ -22,9 +22,5 @@ Pod::Spec.new do |s|
   s.source_files     = '**/*.swift'
 
   s.dependency 'ExpoModulesCore'
-  # CocoaPods rejects `:path` inside a podspec dependency — until
-  # AmSemnatSDK publishes to CocoaPods trunk, the host app's Podfile must
-  # inject `pod 'AmSemnatSDK', :path => '../../am-semnat-sdk/ios'`
-  # before `use_expo_modules!`.
-  s.dependency 'AmSemnatSDK'
+  s.dependency 'AmSemnatSDK', '~> 0.1'
 end

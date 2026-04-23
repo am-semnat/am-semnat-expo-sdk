@@ -29,8 +29,8 @@ Initial release.
   `parameter` / `detail`, etc.) preserved across the native → JS
   boundary.
 - Bundled config plugin (`app.plugin.js`) applying iOS NFC entitlements
-  and Info.plist AIDs, Android NFC feature flag, BouncyCastle META-INF
-  exclusion, and a Phase-4-only Gradle composite-build directive.
+  and Info.plist AIDs, Android NFC feature flag, and BouncyCastle
+  META-INF exclusion.
 - JS-side `InputValidation` port of the iOS / Android rules so callers
   fail fast with the same `INVALID_INPUT` shape the native layer would
   produce.

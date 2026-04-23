@@ -10,7 +10,8 @@
     "build:plugin": "tsc --build plugin",
     "clean": "rm -rf build plugin/build",
     "lint": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run clean && npm run build && npm run build:plugin"
   },
   "keywords": [
     "expo",

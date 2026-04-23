@@ -42,19 +42,15 @@ bridge change.
 that depends on `AmSemnatSDK` via `:path => '../../ios'`.
 
 `android/` — Kotlin Expo Module, one file (`AmSemnatBridgeModule.kt`) +
-`build.gradle` that depends on `ro.amsemnat:am-semnat-sdk` (resolved via
-a consumer-side composite build until the Android SDK publishes to Maven).
+`build.gradle` that depends on `ro.amsemnat:am-semnat-sdk` from Maven
+Central.
 
-`plugin/src/` — config plugin (TS → compiled to `plugin/build/`). Four
+`plugin/src/` — config plugin (TS → compiled to `plugin/build/`). Three
 sub-plugins composed by `index.ts`:
 - `withIosNfcEntitlements` — formats → `.entitlements`, select-identifiers
   → Info.plist (ported from `am-semnat/plugins/withNfcEntitlement.js`)
 - `withAndroidNfcFeature` — `<uses-feature>` in manifest
 - `withBouncyCastleExclusion` — META-INF dedupe in app `build.gradle`
-- `withAndroidCompositeBuild` — pre-1.0 only: injects
-  `includeBuild('../../am-semnat-sdk/android')` into the consumer's
-  `settings.gradle`. Deleted once the Android SDK publishes to Maven
-  Central.
 
 `__tests__/` — Jest suites for `InputValidation` and error round-trip.
 
@@ -77,18 +73,6 @@ sub-plugins composed by `index.ts`:
 
 ## Gotchas
 
-- **Sibling-layout is load-bearing pre-1.0.** The iOS podspec's
-  `:path => '../../ios'` and the Android composite-build plugin both
-  assume `am-semnat-sdk/{ios,android,expo}` remain sibling directories
-  under an `npm link`-ed consumer. Don't break that layout without
-  updating both and the dev harness docs.
-- **`npm link`, not `npm install`, while the native SDKs are
-  unpublished.** `npm install` of the tarball won't resolve
-  `:path => '../../ios'` because the published podspec goes from
-  `node_modules/@amsemnat/expo-sdk/ios/` and `../../ios` resolves
-  inside `node_modules`. Once CocoaPods trunk has `AmSemnatSDK`, the
-  podspec drops the path override and switches to a plain
-  `s.dependency 'AmSemnatSDK', '~> 0.1'`.
 - **Progress events fan out through a shared subscription keyed by `opId`.**
   The native side emits `onProgress` events with `{ opId, kind, step }`;
   the JS shim (`events.ts`) routes each to the matching caller's

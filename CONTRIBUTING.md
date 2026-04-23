@@ -16,9 +16,12 @@ am-semnat-sdk/
 └── verifier-node/ (future)
 ```
 
-The Expo bridge links against the sibling native SDKs via local paths
-(`ios/AmSemnatBridge.podspec` → `:path => '../../ios'`; Android via
-`includeBuild` injected by the config plugin). Breaking the sibling layout
+For local development, contributors iterate the sibling native SDKs in
+place. iOS is wired in via `ios/AmSemnatBridge.podspec` → `:path =>
+'../../ios'` on a local setup. Android changes can be picked up via
+`./gradlew :sdk:publishToMavenLocal` in `../android/`, or by adding a
+`includeBuild('../../am-semnat-sdk/android')` to the consumer app's
+`android/settings.gradle` while iterating. Breaking the sibling layout
 breaks the dev harness.
 
 ## Public API is frozen
