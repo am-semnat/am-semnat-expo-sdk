@@ -8,9 +8,7 @@ surface.
 ## Status
 
 `0.1.0` — pre-stable. Ships in lockstep with the iOS and Android sibling
-SDKs. Public surface is locked in
-[`sdk-api-surface.md`](https://github.com/am-semnat/am-semnat-sdk);
-non-breaking additions only through 0.x.
+SDKs. Public surface is frozen; non-breaking additions only through 0.x.
 
 ## Requirements
 
@@ -57,9 +55,9 @@ The plugin handles the rest:
   applet AIDs in Info.plist
 - Android — `<uses-feature android:name="android.hardware.nfc">` +
   BouncyCastle META-INF exclusion in the app's `packagingOptions`
-- Phase 4 dev — `includeBuild('../am-semnat-sdk/android')` in the
-  consumer's `android/settings.gradle` (removed at Phase 7 when the
-  Android SDK publishes to Maven Central)
+- Android (pre-1.0 only) — injects a Gradle composite-build directive
+  into `android/settings.gradle` so the local Android SDK checkout
+  resolves by path. Removed once the Android SDK publishes to Maven Central.
 
 ## Quick start
 

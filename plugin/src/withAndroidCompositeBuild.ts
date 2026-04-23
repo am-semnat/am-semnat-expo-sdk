@@ -10,15 +10,14 @@ import type { ConfigPlugin } from 'expo/config-plugins';
 import { withSettingsGradle } from 'expo/config-plugins';
 
 /**
- * **Phase-4-only.** Injects a Gradle composite-build directive into the
+ * Pre-1.0 only: injects a Gradle composite-build directive into the
  * consumer app's `android/settings.gradle` so `ro.amsemnat:am-semnat-sdk`
- * resolves against the sibling checkout at `am-semnat-sdk/android/` instead
- * of a Maven coordinate. Required because the Android SDK is published as
- * `0.1.0-SNAPSHOT` and not yet on Maven Central.
+ * resolves against the sibling checkout at `am-semnat-sdk/android/`
+ * instead of a Maven coordinate. Required until the Android SDK publishes
+ * to Maven Central; at that point this plugin goes away and the module's
+ * `build.gradle` switches to a plain registry dependency.
  *
- * The plugin is a no-op when the directive is already present. At Phase 7
- * this plugin is deleted and the module's `build.gradle` switches to a
- * plain registry dependency.
+ * No-op when the directive is already present.
  */
 export const withAndroidCompositeBuild: ConfigPlugin = (config) => {
   return withSettingsGradle(config, (cfg) => {
@@ -35,7 +34,7 @@ export const withAndroidCompositeBuild: ConfigPlugin = (config) => {
     // Gradle auto-substitution won't fire because the included build's project
     // is named `:sdk`, not `:am-semnat-sdk`. Map the Maven coordinate explicitly.
     const block = [
-      `${marker} { // am-semnat-sdk dev harness (Phase 4)`,
+      `${marker} { // am-semnat-sdk local checkout`,
       `  dependencySubstitution {`,
       `    substitute module('ro.amsemnat:am-semnat-sdk') using project(':sdk')`,
       `  }`,

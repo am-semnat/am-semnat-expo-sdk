@@ -4,14 +4,14 @@ Thanks for taking a look. A few notes on how this package is shaped.
 
 ## Repository relationship
 
-Until Phase 7 of the SDK release plan
-(`../../romania-eid-research/sdk/open-source-sdk-plan.md`), the four
-packages live side-by-side in `am-semnat-sdk/`:
+Until the native SDKs publish to their respective registries
+(CocoaPods trunk / Maven Central), the four packages live side-by-side
+in a local `am-semnat-sdk/` checkout:
 
 ```
 am-semnat-sdk/
 ├── ios/        # AmSemnatSDK podspec
-├── android/    # ro.amsemnat:am-semnat-sdk (Maven Central at Phase 7)
+├── android/    # ro.amsemnat:am-semnat-sdk
 ├── expo/       # this package
 └── verifier-node/ (future)
 ```
@@ -23,11 +23,10 @@ breaks the dev harness.
 
 ## Public API is frozen
 
-The public surface (`src/index.ts` exports) mirrors the spec locked in
-[`sdk-api-surface.md`](../../../romania-eid-research/sdk/sdk-api-surface.md).
-Don't add fields, rename options, or reorder enum values without updating
-that doc and the iOS / Android siblings in lockstep. 0.x versions move
-together.
+The public surface (`src/index.ts` exports) mirrors the spec for the
+four sibling SDKs. Don't add fields, rename options, or reorder enum
+values without updating the iOS / Android siblings in lockstep. 0.x
+versions move together.
 
 ## Building
 
@@ -39,9 +38,8 @@ npm test             # Jest (no NFC; JS-side only)
 ```
 
 Native changes require a host Expo app to test against — there is no
-standalone harness. During Phase 4 the `am-semnat` repo is the intended
-host; see that project's `CLAUDE.md` for how to `npm link` this package
-in without breaking the still-active `expo-cei-reader` module.
+standalone harness. The `am-semnat` app is the primary development
+host; `npm link` this package into it to exercise changes end-to-end.
 
 ## What not to do
 

@@ -22,11 +22,9 @@ Pod::Spec.new do |s|
   s.source_files     = '**/*.swift'
 
   s.dependency 'ExpoModulesCore'
-  # CocoaPods rejects `:path` inside a podspec dependency — the consumer's
-  # Podfile is the only place that can override the source. Phase 4 dev
-  # harness: the host app injects
-  # `pod 'AmSemnatSDK', :path => '../../am-semnat-sdk/ios'` before
-  # `use_expo_modules!`. At Phase 7 this drops to a plain pinned version
-  # once the pod is on CocoaPods trunk.
+  # CocoaPods rejects `:path` inside a podspec dependency — until
+  # AmSemnatSDK publishes to CocoaPods trunk, the host app's Podfile must
+  # inject `pod 'AmSemnatSDK', :path => '../../am-semnat-sdk/ios'`
+  # before `use_expo_modules!`.
   s.dependency 'AmSemnatSDK'
 end

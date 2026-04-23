@@ -40,10 +40,10 @@ android {
 }
 
 dependencies {
-    // Phase 4 dev harness: the consumer's settings.gradle injects
-    // `includeBuild('../am-semnat-sdk/android')` via the config plugin, so
-    // this Maven coordinate resolves to the local `:sdk` module. Phase 7
-    // flips this to a plain Maven Central dep.
+    // Until the Android SDK publishes to Maven Central, the config plugin
+    // injects `includeBuild('../../am-semnat-sdk/android')` into the
+    // consumer's settings.gradle so this Maven coordinate resolves to
+    // the local `:sdk` module via dependency substitution.
     implementation 'ro.amsemnat:am-semnat-sdk:0.1.0-SNAPSHOT'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
 }
