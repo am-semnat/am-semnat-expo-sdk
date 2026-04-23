@@ -267,7 +267,6 @@ private enum DataGroupName {
         case "DG1": return .dg1
         case "DG2": return .dg2
         case "DG7": return .dg7
-        case "DG11": return .dg11
         case "DG14": return .dg14
         default: return nil
         }

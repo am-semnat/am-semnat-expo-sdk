@@ -15,17 +15,17 @@
  *
  * Ordering on a successful read, with CA enabled:
  * `paceEstablishing → readingDg14 → chipAuthenticating → readingDg1 →
- *  readingDg2 → readingDg7 → readingDg11 → readingEData → complete`.
+ *  readingDg2 → readingDg7 → readingEData → complete`.
  * DG14 can fire before the other DGs because the vendored reader needs its
  * keys for chip authentication; consumers should localize each value
- * independently rather than depending on the order.
+ * independently rather than depending on the order. Variants are skipped
+ * when the caller didn't request the corresponding `DataGroup`.
  */
 export type ReadProgress =
   | 'paceEstablishing'
   | 'readingDg1'
   | 'readingDg2'
   | 'readingDg7'
-  | 'readingDg11'
   | 'readingDg14'
   | 'chipAuthenticating'
   | 'readingEData'

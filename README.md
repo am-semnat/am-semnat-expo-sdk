@@ -194,7 +194,7 @@ flight. Safe to call repeatedly.
 
 `ReadProgress`:
 `paceEstablishing → readingDg14 → chipAuthenticating → readingDg1 →
-readingDg2 → readingDg7 → readingDg11 → readingEData → complete`
+readingDg2 → readingDg7 → readingEData → complete`
 
 `SignProgress`:
 `paceEstablishing → verifyingPin → readingCertificate → signing → complete`

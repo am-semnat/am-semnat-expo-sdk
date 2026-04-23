@@ -285,7 +285,6 @@ private fun toSdkGroup(name: String): DataGroup? = when (name) {
     "DG1" -> DataGroup.DG1
     "DG2" -> DataGroup.DG2
     "DG7" -> DataGroup.DG7
-    "DG11" -> DataGroup.DG11
     "DG14" -> DataGroup.DG14
     else -> null
 }
@@ -299,7 +298,6 @@ private fun readProgressToJs(step: ReadProgress): String = when (step) {
     ReadProgress.READING_DG1 -> "readingDg1"
     ReadProgress.READING_DG2 -> "readingDg2"
     ReadProgress.READING_DG7 -> "readingDg7"
-    ReadProgress.READING_DG11 -> "readingDg11"
     ReadProgress.READING_DG14 -> "readingDg14"
     ReadProgress.CHIP_AUTHENTICATING -> "chipAuthenticating"
     ReadProgress.READING_EDATA -> "readingEData"

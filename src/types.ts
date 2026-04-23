@@ -13,7 +13,7 @@
  *
  * `DG15` (Active Authentication) is intentionally omitted from 0.x.
  */
-export type DataGroup = 'DG1' | 'DG2' | 'DG7' | 'DG11' | 'DG14';
+export type DataGroup = 'DG1' | 'DG2' | 'DG7' | 'DG14';
 
 /**
  * Default set of data groups read when `readIdentity` is called without the
