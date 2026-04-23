@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["AmSemnatBridgeModule"]
+  },
+  "android": {
+    "modules": ["ro.amsemnat.expo.AmSemnatBridgeModule"]
+  }
+}

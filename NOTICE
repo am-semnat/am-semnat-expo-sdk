@@ -1,0 +1,13 @@
+am-semnat-expo-sdk
+Copyright 2026 am-semnat contributors
+
+This Expo module contains no vendored third-party source. It wraps the
+am-semnat iOS and Android SDKs at runtime — those SDKs in turn link
+third-party code (OpenSSL on iOS, JMRTD / SCUBA / BouncyCastle on Android)
+whose attribution obligations are documented in:
+
+- am-semnat-ios-sdk:    ios/NOTICE, ios/LICENSE-THIRD-PARTY, ios/ATTRIBUTION.md
+- am-semnat-android-sdk: android/NOTICE, android/LICENSE-THIRD-PARTY, android/ATTRIBUTION.md
+
+Consumer apps must reproduce the third-party notices from those sibling
+SDKs — bundling this Expo package does not replace that obligation.
