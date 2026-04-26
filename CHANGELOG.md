@@ -7,7 +7,29 @@ Version numbers ship in lockstep with the sibling SDKs
 (`am-semnat-ios-sdk`, `am-semnat-android-sdk`, `@amsemnat/verifier-node`)
 through the 0.x cycle.
 
-## 0.1.0 — unreleased
+## 0.1.1 — unreleased
+
+### Fixed
+
+- Config plugin now enables core library desugaring in the consumer app's
+  `android/app/build.gradle`. The underlying `ro.amsemnat:am-semnat-sdk`
+  AAR requires it; without this sub-plugin `:app:checkDebugAarMetadata`
+  failed with "Dependency requires core library desugaring to be
+  enabled". Previously consumers worked around it by hand-rolling a
+  `withAndroidDesugaring` plugin.
+- Relaxed the Android Gradle dependency pin from
+  `ro.amsemnat:am-semnat-sdk:0.1.0` to `:0.1.+`, matching the iOS
+  podspec's `~> 0.1` and the locked versioning policy. Android-only
+  patch fixes to the underlying SDK now propagate without a coupled
+  expo-sdk republish.
+- Android callers that omitted `DG14` from the requested `dataGroups`
+  set used to get `RomanianIdentity.chipAuthenticated = false` on cards
+  that actually support chip authentication — iOS always attempted it
+  regardless. The Android SDK now matches iOS; bump
+  `ro.amsemnat:am-semnat-sdk` to `0.1.1` to pick up the fix (the relaxed
+  Gradle pin above does this automatically).
+
+## 0.1.0 — 2026-04-24
 
 Initial release.
 

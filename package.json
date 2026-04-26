@@ -1,6 +1,6 @@
 {
   "name": "@amsemnat/expo-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Expo module that wraps the am-semnat iOS and Android SDKs — NFC read + PAdES sign for Romanian CEI eID cards.",
   "main": "build/index.js",
   "types": "build/index.d.ts",

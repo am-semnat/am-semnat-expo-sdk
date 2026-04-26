@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AmSemnatBridge'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Expo bridge for the am-semnat iOS SDK.'
   s.description      = <<~DESC
     Thin Expo Modules bridge over `AmSemnatSDK`. Translates `readIdentity` /
