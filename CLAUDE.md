@@ -7,9 +7,9 @@ Guidance for Claude Code when working in `am-semnat-sdk/expo/`.
 Expo Module (`@amsemnat/expo-sdk`) that wraps the two native SDKs at
 `../ios/` (`AmSemnatSDK` pod) and `../android/` (`ro.amsemnat:am-semnat-sdk`
 Gradle module). Zero business logic — just marshaling args in, progress
-and errors out. Extracted from `../../am-semnat/modules/expo-cei-reader/`,
-which still ships and runs in parallel until the `am-semnat` app finishes
-migrating to this package.
+and errors out. Extracted from a previous `expo-cei-reader` module that
+used to live in the `am-semnat` consumer; that module has been removed
+and the consumer now depends on this package directly.
 
 The public TS surface is **frozen** for 0.x. Don't change exported type
 names, option fields, enum values, or `AmSemnatError` codes without
@@ -27,7 +27,10 @@ npm test             # Jest — no NFC, JS-side only
 Native bridges are not compiled by `npm` — they compile when a host Expo
 app links this package and runs `pod install` / `./gradlew`. The primary
 host is `../../am-semnat`; smoke test there with a real card after any
-bridge change.
+bridge change. To exercise an unpublished change against that host
+without going through npm publish, use the `AM_SEMNAT_LOCAL=1` loopback —
+see `../research/local-dev-loopback.md` (uses `--install-links` because
+Metro doesn't resolve symlinked packages).
 
 ## Layout
 
@@ -45,12 +48,15 @@ that depends on `AmSemnatSDK` via `:path => '../../ios'`.
 `build.gradle` that depends on `ro.amsemnat:am-semnat-sdk` from Maven
 Central.
 
-`plugin/src/` — config plugin (TS → compiled to `plugin/build/`). Three
+`plugin/src/` — config plugin (TS → compiled to `plugin/build/`). Four
 sub-plugins composed by `index.ts`:
 - `withIosNfcEntitlements` — formats → `.entitlements`, select-identifiers
-  → Info.plist (ported from `am-semnat/plugins/withNfcEntitlement.js`)
+  → Info.plist
 - `withAndroidNfcFeature` — `<uses-feature>` in manifest
 - `withBouncyCastleExclusion` — META-INF dedupe in app `build.gradle`
+- `withAndroidDesugaring` — `coreLibraryDesugaringEnabled` + `desugar_jdk_libs`
+  in app `build.gradle` (added for 0.1.1; the consumer's local
+  `withAndroidDesugaring.js` workaround can be deleted once 0.1.1 ships)
 
 `__tests__/` — Jest suites for `InputValidation` and error round-trip.
 
@@ -82,11 +88,6 @@ sub-plugins composed by `index.ts`:
   "NFC is enabled" system toggle — both async calls return
   `NFCTagReaderSession.readingAvailable`. Android returns the real
   `NfcAdapter.isEnabled` value.
-- **Don't reach into the vendored `expo-cei-reader` module.** It still
-  ships from `../../am-semnat/modules/expo-cei-reader/` for parallel use
-  during the migration window, but its types, Romanian-language strings,
-  and error codes diverge from this surface deliberately. The consumer
-  app swaps imports file-by-file.
 - **Tests run on Node, not on a device.** There is no jest-expo setup;
   imports go straight to `src/`. That means tests can't touch
   `expo-modules-core` (the `requireNativeModule` call in `native.ts`
