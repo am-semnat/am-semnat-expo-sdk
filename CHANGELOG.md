@@ -7,7 +7,7 @@ Version numbers ship in lockstep with the sibling SDKs
 (`am-semnat-ios-sdk`, `am-semnat-android-sdk`, `@amsemnat/verifier-node`)
 through the 0.x cycle.
 
-## 0.1.1 — unreleased
+## 0.1.1 — 2026-04-26
 
 ### Fixed
 
