@@ -13,7 +13,7 @@ am-semnat-sdk/
 ├── ios/        # AmSemnatSDK podspec
 ├── android/    # ro.amsemnat:am-semnat-sdk
 ├── expo/       # this package
-└── verifier-node/ (future)
+└── verifier/         # @amsemnat/verifier
 ```
 
 For local development, contributors iterate the sibling native SDKs in

@@ -142,7 +142,7 @@ if (!result.valid) console.warn(result.errors);
 ```
 
 Server-side verification against the official Romanian trust list is
-delegated to `@amsemnat/verifier-node` (shipped separately).
+delegated to `@amsemnat/verifier` (shipped separately).
 
 The SDK doesn't bundle any certificates. Two Romanian authorities
 publish the certs the SDK interacts with, one per PKI:
@@ -262,7 +262,7 @@ they reach you.
 
 - Active Authentication (DG15) — the iOS fork supports it but the API
   surface deliberately omits it for 0.x; pass the `rawDg*Base64` fields
-  to `@amsemnat/verifier-node` for transferable proof instead.
+  to `@amsemnat/verifier` for transferable proof instead.
 - Low-level `tag:` overloads from the native SDKs — no safe equivalent
   across React Native's threading model.
 

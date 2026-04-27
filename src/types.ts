@@ -61,7 +61,7 @@ export const DEFAULT_NFC_MESSAGES: NfcMessages = {
  *
  * `chipAuthenticated` is a local-UX-only signal — for transferable evidence,
  * pair `rawSodBase64` + the `rawDg*Base64` fields with `verifyPassiveOffline`
- * or the `@amsemnat/verifier-node` service.
+ * or the `@amsemnat/verifier` service.
  */
 export interface RomanianIdentity {
   cnp?: string;
